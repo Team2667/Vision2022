@@ -3,6 +3,7 @@ package frc.robot.Utils;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.subsystems.models.TargetPos;
 
 public class Vision {
 

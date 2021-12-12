@@ -4,28 +4,32 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LimeLight;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class LLDriverCamera extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private final LimeLight limeLight;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public LLDriverCamera(LimeLight subsystem) {
+    limeLight = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //TODO: Set the camera for TeleopDriving
+    //TODO: Set the smart dashboard camMode to "Driver"
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

@@ -1,4 +1,4 @@
-package frc.robot.Utils;
+package frc.robot.subsystems.models;
 
 public class TargetPos {
     private double x;
