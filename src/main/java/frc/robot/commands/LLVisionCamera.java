@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.LimeLight;
 
 public class LLVisionCamera extends CommandBase{
@@ -21,13 +22,18 @@ public class LLVisionCamera extends CommandBase{
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-      //TODO: Set the camera for Vision Processing
+      limeLight.setVisionProcessing();
       //TODO: Set the smart dashboard camMode to "Vision"
+
     }
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+      var tpos = limeLight.getCurrentTargetPos();
+      SmartDashboard.putNumber("x: ",tpos.getX());
+      SmartDashboard.putNumber("y: ",tpos.getY());
+      SmartDashboard.putNumber("area: ",tpos.getArea());
         //TODO: Get the current target position and display x, y and area in the smart dashboard.
     }
   

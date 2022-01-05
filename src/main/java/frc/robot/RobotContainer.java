@@ -3,12 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.LLDriverCamera;
 import frc.robot.subsystems.LimeLight;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.LLDriverCamera;
+import frc.robot.commands.LLVisionCamera;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -37,14 +39,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //TODO: Construct an LLDriverCamera command
-    //TODO: Make the LLDriverCammera command the Limelight's default command
-    //TODO: Construct an LLVisionCamera command
-    //TODO: Map the LLVisionCamera command to a button as while held.
+    LLDriverCamera drivermode=new LLDriverCamera(limeLight);
+    limeLight.setDefaultCommand(drivermode);
 
-    //TODO: Uncomment and fix the following.
-    //JoystickButton bR = new JoystickButton(joy,XboxController.Button.kX.value);
-    //bR.whileHeld(llVisionCamera);
+    JoystickButton bR = new JoystickButton(joy,XboxController.Button.kX.value);
+      bR.whileHeld(new LLVisionCamera(limeLight));
   }
 
   /**

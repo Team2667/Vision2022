@@ -7,27 +7,79 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.models.TargetPos;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 
 public class LimeLight extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public LimeLight() {}
+  public LimeLight() {
+
+  }
 
   public TargetPos getCurrentTargetPos()
   {
-      // TODO: Modify to return a TargetPos based on current readings from the limelight.
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+
+    double x=tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
+
+      // TODO: Modify to return a TargetPos based on current readings from the limelight. 
       // See: https://docs.limelightvision.io/en/latest/getting_started.html#basic-programming
-     return new TargetPos(0.0,0.0,0.0);
+      
+      return new TargetPos(x,y,area);
   }
 
-  public void setVisionProcessing(){
-    // TODO: Set the Limelight's camMode to Vision processor.
-    // TODO: Set the ledMode to on.
+  private Boolean SetEntry(String entry, int value)
+  {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry(entry).setNumber(value);
+  }
+/*
+0 	Vision processor
+1 	Driver Camera (Increases exposure, disables vision processing)
+*/
+
+  public Boolean setVisionProcessing(){
+    //put camera into vision mode
+    boolean retval = SetEntry("CamMode", 0);
+    if(!retval)
+    {
+      System.out.println("unable to put camera into vision mode");
+      return false;
+    }
+
+    //force enable leds
+    retval = SetEntry("ledMode",3);
+    if(!retval)
+    {
+      return false;
+    }
+
+    return true;
     // See: https://docs.limelightvision.io/en/latest/networktables_api.html
   }
 
-  public void setTeleopDriving() {
-    // TODO: Set the Limelight's camMode to 'Driver Camera'.
-    // TODO: set the ledMode to off.
+  public Boolean setTeleopDriving() {
+    //put camera into driving mode
+    Boolean retval = SetEntry("CamMode", 1);
+    if(!retval)
+    {
+      return false;
+    }
+
+    //force disable leds
+    retval = SetEntry("ledMode",1);
+    if(!retval)
+    {
+      return false;
+    }
+    return true;
     // See: https://docs.limelightvision.io/en/latest/networktables_api.html
   }
 
